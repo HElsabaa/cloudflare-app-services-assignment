@@ -63,19 +63,29 @@ class HeaderEchoHandler(BaseHTTPRequestHandler):
     # every response, which HTTP/1.1 keep-alive requires.
     protocol_version = "HTTP/1.1"
 
-    def _respond(self) -> None:
-        """Write the standard header-echo response for the current request."""
+    def _respond(self, include_body: bool = True) -> None:
+        """Write the standard header-echo response for the current request.
+
+        Args:
+            include_body: Whether to write the response body. Set to ``False``
+                for HEAD requests, which must send headers only.
+        """
         headers = collect_headers(self.headers)
         body = render_body(headers, self.client_address[0])
         self.send_response(200)
         self.send_header("Content-Type", "application/json; charset=utf-8")
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
-        self.wfile.write(body)
+        if include_body:
+            self.wfile.write(body)
 
     def do_GET(self) -> None:
         """Handle GET requests by echoing the request headers."""
         self._respond()
+
+    def do_HEAD(self) -> None:
+        """Handle HEAD requests with headers only and no response body."""
+        self._respond(include_body=False)
 
     def do_POST(self) -> None:
         """Handle POST requests by echoing the request headers."""
