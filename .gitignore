@@ -1,0 +1,17 @@
+# Confidential / internal — never publish
+*.pdf
+docs/
+
+# Node / wrangler build artifacts
+node_modules/
+.wrangler/
+dist/
+*.log
+
+# Secrets and local env
+.dev.vars
+.env
+*.pem
+
+# OS cruft
+.DS_Store

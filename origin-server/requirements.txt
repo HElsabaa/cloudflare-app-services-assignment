@@ -1,0 +1,2 @@
+# The origin server uses only the Python standard library (http.server).
+# No third-party packages are required. Python 3.8+ is recommended.

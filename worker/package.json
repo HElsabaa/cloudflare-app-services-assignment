@@ -1,0 +1,13 @@
+{
+  "name": "secure-identity-worker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cloudflare Worker that returns authenticated identity info and serves country flags from a private R2 bucket.",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "4.151.0"
+  }
+}

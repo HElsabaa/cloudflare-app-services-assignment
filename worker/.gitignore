@@ -1,0 +1,9 @@
+node_modules/
+.wrangler/
+dist/
+*.log
+
+# Never commit secrets or credentials
+.dev.vars
+.env
+*.pem

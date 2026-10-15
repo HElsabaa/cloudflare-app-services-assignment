@@ -1,0 +1,26 @@
+# Wrangler configuration for the /secure identity Worker.
+#
+# Replace the placeholder values marked with CHANGE_ME before deploying:
+#   - account_id : your Cloudflare account ID (dash -> Workers & Pages -> right sidebar)
+#   - routes     : the zone and hostname pattern for your domain
+#   - bucket_name: the R2 bucket that stores the flag assets
+
+name = "secure-identity-worker"
+main = "src/index.js"
+compatibility_date = "2025-01-01"
+
+# Your Cloudflare account ID.
+# Find it in the dashboard: Workers & Pages -> Account ID (right sidebar).
+account_id = "your-account-id-here"
+
+# Serve the Worker on the tunnel subdomain's /secure path and below.
+routes = [
+  { pattern = "tunnel.helsabaa.dev/secure*", zone_name = "helsabaa.dev" }
+]
+
+# Private R2 bucket binding. The Worker reads flag assets through env.FLAGS.
+# R2 bucket names: lowercase letters, numbers and hyphens only (3-63 chars).
+# Replace with your actual bucket name after you create it.
+[[r2_buckets]]
+binding = "FLAGS"
+bucket_name = "assignment-flags"
