@@ -57,6 +57,11 @@ class HeaderEchoHandler(BaseHTTPRequestHandler):
     """HTTP request handler that echoes request headers back to the caller."""
 
     server_version = "HeaderEcho/1.0"
+    # Speak HTTP/1.1 so keep-alive framing works correctly behind reverse
+    # proxies (Caddy / Cloudflare Tunnel). With HTTP/1.0, some proxies drop the
+    # response body on reused connections. A correct Content-Length is sent on
+    # every response, which HTTP/1.1 keep-alive requires.
+    protocol_version = "HTTP/1.1"
 
     def _respond(self) -> None:
         """Write the standard header-echo response for the current request."""
